@@ -216,7 +216,7 @@
         }
 
         .button-card-name {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             margin-bottom: 6px;
             color: #4b5563;
         }
