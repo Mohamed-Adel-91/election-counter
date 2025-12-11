@@ -145,6 +145,14 @@
             color: #7f1d1d;
         }
 
+        .btn-invalid-add {
+            background-color: #dc2626;
+        }
+
+        .btn-invalid-add:hover {
+            background-color: #b91c1c;
+        }
+
         .top-voters-card {
             margin-top: 20px;
             border: 1px solid #a7f3d0;
@@ -219,6 +227,11 @@
             margin-bottom: 6px;
             color: #0f172a;
         }
+
+        .btn-increment-voter {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 
@@ -241,33 +254,32 @@
         <div class="buttons-grid">
             @foreach ($voters as $voter)
                 <div class="button-card" data-voter-id="{{ $voter->id }}">
-                    <div class="button-card-number">رقم
-                        {{ $voter->number }}
-                    </div>
+
                     <div class="button-card-name">{{ $voter->name }}</div>
                     <div class="button-card-votes" data-voter-id="{{ $voter->id }}">
                         الأصوات: <span class="card-votes-value">{{ $voter->votes }}</span>
                     </div>
                     <button type="button" class="btn btn-increment-voter"
                         data-url="{{ route('voters.increment', $voter->id) }}">
-                        مرشح {{ $voter->number }}
+                         {{ $voter->number }}
                     </button>
                 </div>
             @endforeach
-        </div>
-
-        <div class="actions-row">
-            <div class="button-card invalid-box">
-                <div class="button-card-name">الأصوات الباطلة</div>
-                <button
-                    type="button"
-                    class="btn btn-invalid-add"
-                    data-url="{{ route('invalid_votes.increment') }}"
-                >
-                    إضافة صوت باطل
-                </button>
+            <div class="actions-row">
+                <div class="button-card invalid-box">
+                    <div class="button-card-name">الأصوات الباطلة</div>
+                    <div class="button-card-votes">
+                        الإجمالي: <span id="invalidVotesBoxValue">{{ $invalidVotes }}</span>
+                    </div>
+                    <button type="button" class="btn btn-invalid-add"
+                        data-url="{{ route('invalid_votes.increment') }}">
+                        إضافة صوت باطل
+                    </button>
+                </div>
             </div>
         </div>
+
+
 
         <table>
             <thead>
@@ -387,6 +399,8 @@
             document.getElementById('totalVotesValue').textContent = data.totalVotes;
             document.getElementById('quarterValue').textContent = data.quarter;
             document.getElementById('invalidVotesValue').textContent = data.invalidVotes;
+            const invalidBox = document.getElementById('invalidVotesBoxValue');
+            if (invalidBox) invalidBox.textContent = data.invalidVotes;
             document.getElementById('totalParticipantsValue').textContent = data.totalParticipants;
 
             document.getElementById('percentValidValue').textContent = data.percentValid.toFixed(2) + '%';
