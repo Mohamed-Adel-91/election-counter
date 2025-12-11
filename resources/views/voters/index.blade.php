@@ -134,6 +134,11 @@
             border-color: #c7d2fe;
         }
 
+        .stat-percentage {
+            background: #e0f2fe;
+            border-color: #bae6fd;
+        }
+
         .top-voters-card {
             margin-top: 20px;
             border: 1px solid #a7f3d0;
@@ -215,14 +220,14 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" class="total-row">إجمالي الأصوات: {{ $totalVotes }}</td>
+                    <td colspan="4" class="total-row">إجمالي : {{ $totalVotes }}</td>
                 </tr>
             </tfoot>
         </table>
 
         <div class="stats">
             <div class="stat-card stat-valid">
-                <p class="label">إجمالي الأصوات الصحيحة (مقسوم على ٤)</p>
+                <p class="label">إجمالي الأصوات الصحيحة </p>
                 <p class="value">{{ $quarter }}</p>
             </div>
             <div class="stat-card stat-invalid">
@@ -232,6 +237,24 @@
             <div class="stat-card stat-total">
                 <p class="label">إجمالي من أدلى بصوته (صحيح + باطل)</p>
                 <p class="value">{{ $quarter + $invalidVotes }}</p>
+            </div>
+            <div class="stat-card stat-valid">
+                <p class="label">نسبة الاصوات الصحيحه من إجمالي ٩٨٧٢ ناخب</p>
+                <p class="value">
+                    {{ number_format((($quarter) / 9872) * 100, 2) }}%
+                </p>
+            </div>
+            <div class="stat-card stat-invalid">
+                <p class="label">نسبة الاصوات الباطله من إجمالي ٩٨٧٢ ناخب</p>
+                <p class="value">
+                    {{ number_format((($invalidVotes) / 9872) * 100, 2) }}%
+                </p>
+            </div>
+            <div class="stat-card stat-percentage">
+                <p class="label">نسبة التصويت من إجمالي ٩٨٧٢ ناخب</p>
+                <p class="value">
+                    {{ number_format((($quarter + $invalidVotes) / 9872) * 100, 2) }}%
+                </p>
             </div>
         </div>
         <div class="actions-row">
