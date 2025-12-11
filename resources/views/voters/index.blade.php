@@ -212,7 +212,7 @@
                         <td>
                             <form method="POST" action="{{ route('voters.increment', $voter->id) }}">
                                 @csrf
-                                <button type="submit" class="btn">زيادة صوت</button>
+                                <button type="submit" class="btn">زيادة صوت : {{ $voter->number }}</button>
                             </form>
                         </td>
                     </tr>
